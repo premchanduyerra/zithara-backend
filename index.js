@@ -7,21 +7,14 @@ const app = express();
 const port = 5000;
 
 // PostgreSQL configuration
-// const pool = new Pool({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'zithara',
-//   password: 'admin',
-//   port: 5433,
-// });
-// PostgreSQL configuration
 const pool = new Pool({
   user: 'postgres',
-  host: '200.69.21.187',
+  host: 'localhost',
   database: 'zithara',
-  password: 'postgres',
-  port: 5432,
+  password: 'admin',
+  port: 5433,
 });
+  
 app.use(cors());
 
 // Route to fetch customers with pagination
@@ -31,7 +24,7 @@ app.get('/api/customers', async (req, res) => {
   try {
     
     const result = await pool.query(
-      `SELECT * FROM customers ORDER BY created_at DESC LIMIT 20 OFFSET $1`,
+      `SELECT * FROM customers ORDER BY created_at DESC  OFFSET $1`,
       [offset]
     );
     res.json(result.rows);
